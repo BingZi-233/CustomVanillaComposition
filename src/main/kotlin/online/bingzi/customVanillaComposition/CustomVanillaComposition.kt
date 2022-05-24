@@ -11,7 +11,10 @@ object CustomVanillaComposition : Plugin() {
         val file = File(BukkitPlugin.getInstance().dataFolder, "craft/")
         val fileTreeWalk = file.walk()
         fileTreeWalk.forEach {
-            recipeService.registerRecipe(it.name.replace(".json",""))
+            if (it.name.contains(".json")) {
+                recipeService.registerRecipe(it.name.replace(".json", ""))
+            }
         }
     }
+
 }

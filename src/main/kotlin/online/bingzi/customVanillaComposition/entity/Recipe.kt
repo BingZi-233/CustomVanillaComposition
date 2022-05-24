@@ -17,8 +17,8 @@ data class Recipe(
         val createLocal = createLocal(path = "craft/$node.json", saveTime = 200, type = Type.JSON)
         createLocal["Node"] = node
         createLocal["RecipeType"] = recipeType
-        createLocal["Material"] = materialList.map { it.serializeToByteArray() }
-        createLocal["Result"] = result.serializeToByteArray()
+        createLocal["Material"] = materialList.map { it.serializeToByteArray(true) }
+        createLocal["Result"] = result.serializeToByteArray(true)
     }
 
     fun registerRecipe(){

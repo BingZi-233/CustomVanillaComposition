@@ -5,7 +5,6 @@ import online.bingzi.customVanillaComposition.entity.RecipeType
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
-import taboolib.common.platform.function.info
 import taboolib.library.xseries.XMaterial
 import taboolib.module.chat.colored
 import taboolib.module.ui.openMenu
@@ -26,12 +25,6 @@ object ViewUtil {
             init()
             button(RecipeType.Shapeless, argument)
 //            debug()
-        }
-    }
-
-    private fun Basic.debug() {
-        onClick {
-            info("点击位置:${it.rawSlot}")
         }
     }
 
@@ -63,6 +56,7 @@ object ViewUtil {
         set(17, item)
         onClick { event ->
             if (event.rawSlot == 17) {
+                event.isCancelled = true
                 val composite = event.inventory.getItem(15) ?: return@onClick
                 val materialList = mutableListOf<ItemStack>()
                 mutableListOf(1, 2, 3, 10, 11, 12, 19, 20, 21).forEach {
@@ -77,14 +71,8 @@ object ViewUtil {
                 )
                 recipe.registerRecipe()
                 recipe.writeDataFile()
-                reset()
+                event.clicker.closeInventory()
             }
-        }
-    }
-
-    private fun Basic.reset() {
-        mutableListOf(1, 2, 3, 10, 11, 12, 19, 20, 21, 15).forEach {
-            set(it, ItemStack(Material.AIR))
         }
     }
 }
